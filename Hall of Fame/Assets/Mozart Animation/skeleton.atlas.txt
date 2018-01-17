@@ -1,0 +1,111 @@
+
+skeleton.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Back Hand
+  rotate: false
+  xy: 642, 332
+  size: 197, 154
+  orig: 197, 154
+  offset: 0, 0
+  index: -1
+Back Shoe
+  rotate: false
+  xy: 353, 8
+  size: 126, 75
+  orig: 126, 75
+  offset: 0, 0
+  index: -1
+Back Shoulder
+  rotate: false
+  xy: 582, 98
+  size: 149, 127
+  orig: 149, 127
+  offset: 0, 0
+  index: -1
+Back Thigh
+  rotate: false
+  xy: 841, 333
+  size: 163, 153
+  orig: 163, 153
+  offset: 0, 0
+  index: -1
+Back Tibia
+  rotate: true
+  xy: 397, 244
+  size: 98, 218
+  orig: 98, 218
+  offset: 0, 0
+  index: -1
+Cola
+  rotate: true
+  xy: 397, 344
+  size: 142, 243
+  orig: 142, 243
+  offset: 0, 0
+  index: -1
+Front Hand
+  rotate: false
+  xy: 394, 85
+  size: 186, 157
+  orig: 186, 157
+  offset: 0, 0
+  index: -1
+Front Shoe
+  rotate: false
+  xy: 481, 14
+  size: 77, 69
+  orig: 77, 69
+  offset: 0, 0
+  index: -1
+Front Shoulder
+  rotate: true
+  xy: 733, 92
+  size: 133, 122
+  orig: 133, 122
+  offset: 0, 0
+  index: -1
+Front Thigh
+  rotate: true
+  xy: 198, 126
+  size: 144, 194
+  orig: 144, 194
+  offset: 0, 0
+  index: -1
+Front Tibia
+  rotate: true
+  xy: 617, 227
+  size: 103, 205
+  orig: 103, 205
+  offset: 0, 0
+  index: -1
+Head
+  rotate: false
+  xy: 2, 253
+  size: 194, 233
+  orig: 194, 233
+  offset: 0, 0
+  index: -1
+Pelvis
+  rotate: false
+  xy: 189, 2
+  size: 162, 122
+  orig: 162, 122
+  offset: 0, 0
+  index: -1
+Trunk Down
+  rotate: false
+  xy: 2, 16
+  size: 185, 235
+  orig: 185, 235
+  offset: 0, 0
+  index: -1
+Trunk UP
+  rotate: false
+  xy: 198, 272
+  size: 197, 214
+  orig: 197, 214
+  offset: 0, 0
+  index: -1
