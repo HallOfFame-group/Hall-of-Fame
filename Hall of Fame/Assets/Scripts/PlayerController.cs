@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour {
 
     private float speed = 12;
-    public Animator ChAnimator;
+    private Animator ChAnimator;
     private bool m_isAxisYInUse = false;
     private bool m_isAxisXInUse = false;
     private Rigidbody rig;
@@ -54,14 +54,7 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetAxisRaw("X360_dPadY") < 0) 
         {
             ChAnimator.SetBool("Y Axis up", true);
-            jumping = true;
-            
         }
-        if (jumping == true)
-        {
-            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 15 * Time.deltaTime, 0);
-        }
-
         if (triggerAxis != 0)
         {
             print("Trigger Value: " + triggerAxis);
@@ -87,10 +80,16 @@ public class PlayerController : MonoBehaviour {
         //B Button
         if (Input.GetButtonDown("X360_B"))
         {
+            ChAnimator.SetBool("B Button Pressed", true);
             print("B Button");
         }
+
+        if (Input.GetButtonUp("X360_B"))
+        {
+            ChAnimator.SetBool("B Button Pressed", false);
+        }
         //X Button
-        if (Input.GetButton("X360_X") && !Input.GetButtonDown("X360_A"))
+        if (Input.GetButtonDown("X360_X") && !Input.GetButtonDown("X360_A"))
         {
             print("X Button");
             ChAnimator.SetBool("X Button Pressed", true);
