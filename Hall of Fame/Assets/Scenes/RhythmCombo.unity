@@ -274,8 +274,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5227c892e6b78cd4bbc01cc67659e4a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicName: Symphony No. 9
-  artistName: Ludwig van Beethoven
+  audio: {fileID: 0}
+  musicName: 
+  artistName: 
   icon: {fileID: 0}
 --- !u!1 &1769432765
 GameObject:

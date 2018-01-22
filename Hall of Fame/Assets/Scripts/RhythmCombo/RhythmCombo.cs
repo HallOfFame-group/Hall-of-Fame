@@ -91,6 +91,8 @@ public class RhythmCombo : MonoBehaviour
     public void Register(ComboPiece combo)
     {
         title.text = combo.musicName + " - " + combo.artistName;
+        // icon = combo.icon
+
     }
 
     /// <summary>

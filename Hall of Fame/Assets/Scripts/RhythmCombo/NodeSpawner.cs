@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NodeSpawner : MonoBehaviour {
+public class NodeSpawner : MonoBehaviour
+{
+    [SerializeField] private GameObject beatNode;
+    private bool spawning = false;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private void Start()
+    {
+        if (spawning)
+        {
+            // Start spawning nodes
+        }
+    }
 }
