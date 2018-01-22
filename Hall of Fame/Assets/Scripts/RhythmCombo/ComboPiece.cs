@@ -3,6 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum NodeButton
+{
+    A,
+    B
+}
+
+[System.Serializable]
+public struct TimedNode
+{
+    public float timeStamp;
+    public NodeButton nodeButton;
+}
+
 public class ComboPiece : MonoBehaviour
 {
     #region Public Editable Members
@@ -10,6 +23,7 @@ public class ComboPiece : MonoBehaviour
     public string musicName;
     public string artistName;
     public Image icon;
+    public TimedNode[] timeNodeArray;
     #endregion
 
     #region Private Members

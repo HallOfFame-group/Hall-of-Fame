@@ -132,4 +132,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d930f4573614bfa438e72d4b181ae7a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  beatNode: {fileID: 0}
+  bpm: 0
+  beatNode: {fileID: 1200626830069052, guid: 2a3c2fbba98e6c64e812f35933e4031f, type: 2}

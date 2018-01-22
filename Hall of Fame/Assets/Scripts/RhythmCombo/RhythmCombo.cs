@@ -92,6 +92,7 @@ public class RhythmCombo : MonoBehaviour
     {
         title.text = combo.musicName + " - " + combo.artistName;
         // icon = combo.icon
+        nodeSpawner.PrepareNodes(combo.timeNodeArray);
 
     }
 
@@ -101,6 +102,7 @@ public class RhythmCombo : MonoBehaviour
     public void Display()
     {
         container.gameObject.SetActive(true);
+        nodeSpawner.StartSpawning();
     }
 
     /// <summary>

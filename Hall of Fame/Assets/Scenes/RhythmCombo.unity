@@ -275,9 +275,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 0}
-  musicName: 
-  artistName: 
+  musicName: Symphony No. 9
+  artistName: Beethoven
   icon: {fileID: 0}
+  timeNodeArray:
+  - timeStamp: 0.375
+    nodeButton: 0
+  - timeStamp: 1.1
+    nodeButton: 1
+  - timeStamp: 1.356
+    nodeButton: 0
 --- !u!1 &1769432765
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,5 +8,6 @@ public class InvokeRhythmCombo : MonoBehaviour
     {
         RhythmCombo.instance.Test();
         RhythmCombo.instance.Register(this.GetComponent<ComboPiece>());
+        RhythmCombo.instance.Display();
     }
 }
