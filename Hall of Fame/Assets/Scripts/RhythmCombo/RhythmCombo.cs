@@ -69,11 +69,18 @@ public class RhythmCombo : MonoBehaviour
         beatLineLocation = nodePanel.Find("BeatLine").position;
         spawnLocation = nodePanel.Find("Spawner").position;
 
-        nodeSpawner = Instantiate<GameObject>(nodeSpawnerObject, spawnLocation, new Quaternion(), nodePanel).GetComponent<NodeSpawner>();
-        beatLine = Instantiate<GameObject>(beatLineObject, beatLineLocation, new Quaternion(), nodePanel).GetComponent<BeatLine>();
+        nodeSpawner = Instantiate<GameObject>(nodeSpawnerObject, spawnLocation, new Quaternion()).GetComponent<NodeSpawner>();
+        beatLine = Instantiate<GameObject>(beatLineObject, beatLineLocation, new Quaternion()).GetComponent<BeatLine>();
 
         // By default, hides the UI elements
-        container.gameObject.SetActive(false);
+        Activate(false);
+    }
+
+    private void Activate(bool active)
+    {
+        container.gameObject.SetActive(active);
+        nodeSpawner.gameObject.SetActive(active);
+        beatLine.gameObject.SetActive(active);
     }
 
     #endregion
@@ -101,7 +108,7 @@ public class RhythmCombo : MonoBehaviour
     /// </summary>
     public void Display()
     {
-        container.gameObject.SetActive(true);
+        Activate(true);
         nodeSpawner.StartSpawning();
     }
 
@@ -110,7 +117,7 @@ public class RhythmCombo : MonoBehaviour
     /// </summary>
     public void End()
     {
-
+        Activate(false);
     }
     #endregion
 }

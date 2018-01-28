@@ -36,7 +36,8 @@ public class NodeSpawner : MonoBehaviour
             if (timeNodes[spawnCount].timeStamp <= elapsedTime)
             {
                 // Instantiate beat node
-                Instantiate(beatNode, this.transform.position, this.transform.rotation);
+                Debug.Log("Spawning at: " + this.transform.position);
+                Instantiate(beatNode, this.transform);
 
                 // Increment spaw count
                 ++spawnCount;
