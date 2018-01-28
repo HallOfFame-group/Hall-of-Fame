@@ -4,19 +4,37 @@ using UnityEngine;
 
 public class NodeSpawner : MonoBehaviour
 {
+    #region Private Members
+    // Controls the spawning timing offset and speed of node
     public int bpm;
-    [SerializeField] private GameObject beatNode;
-    private bool spawning;
-    private int spawnCount;
 
+    public delegate void NodeSpawnerCallback();
+
+    // Total spawned count
+    public int spawnCount;
+
+    // Callback function registed
+    public NodeSpawnerCallback callbackFunc;
+    #endregion
+
+    #region Private Members
+    // BeatNode prefab object
+    [SerializeField] private GameObject beatNode;
+
+    // Boolean indicate start spawning according to the TimeNode registered
+    private bool spawning;
+
+    // Timer variable for spawning node as TimeNode array indicated
     private float elapsedTime;
 
+    // TimeNode array from ComboPiece registered
     private TimedNode[] timeNodes;
+    #endregion
 
+    #region Private Methods
     private void ResetNodeSpawner()
     {
         spawning = false;
-        spawnCount = 0;
         elapsedTime = 0.0f;
     }
 
@@ -36,10 +54,9 @@ public class NodeSpawner : MonoBehaviour
             if (timeNodes[spawnCount].timeStamp <= elapsedTime)
             {
                 // Instantiate beat node
-                Debug.Log("Spawning at: " + this.transform.position);
-                Instantiate(beatNode, this.transform);
+                Instantiate(beatNode, this.transform).GetComponent<BeatNode>().keyCode = timeNodes[spawnCount].nodeButton;
 
-                // Increment spaw count
+                // Increment spawn count
                 ++spawnCount;
             }
 
@@ -47,9 +64,13 @@ public class NodeSpawner : MonoBehaviour
             if (spawnCount >= timeNodes.Length)
             {
                 spawning = false;
+                callbackFunc();
             }
         }
     }
+    #endregion
+
+    #region Public Methods
 
     public void PrepareNodes(TimedNode[] timeNodes)
     {
@@ -60,6 +81,8 @@ public class NodeSpawner : MonoBehaviour
     public void StartSpawning()
     {
         spawning = true;
-        Debug.Log("NodeSpawner Enable");
+        spawnCount = 0;
     }
+
+    #endregion
 }
