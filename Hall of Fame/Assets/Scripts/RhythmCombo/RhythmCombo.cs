@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public struct RhythmResult
+{
+    public int perfectCount;
+    public int goodCount;
+    public int badCount;
+    public int missCount;
+};
+
 public class RhythmCombo : MonoBehaviour
 {
     #region Private Members
@@ -28,6 +36,10 @@ public class RhythmCombo : MonoBehaviour
     private BeatLine beatLine;
     private Vector3 beatLineLocation;
 
+    // Contains combo result obtained from beat line object
+    public RhythmResult comboResult;
+
+    private bool spawnFinishedFlag = false;
     #endregion
 
     #region Public Members
@@ -55,6 +67,11 @@ public class RhythmCombo : MonoBehaviour
         }
     }
 
+    // Using delegate as function callback method
+    // This will be called when rhythm combo has finished, and returns the result to caller
+    public delegate void RhythmComboCallback();
+    public RhythmComboCallback callbackFunc;
+
     #endregion
 
     #region Non-Public Methods
@@ -69,11 +86,39 @@ public class RhythmCombo : MonoBehaviour
         beatLineLocation = nodePanel.Find("BeatLine").position;
         spawnLocation = nodePanel.Find("Spawner").position;
 
-        nodeSpawner = Instantiate<GameObject>(nodeSpawnerObject, spawnLocation, new Quaternion(), nodePanel).GetComponent<NodeSpawner>();
-        beatLine = Instantiate<GameObject>(beatLineObject, beatLineLocation, new Quaternion(), nodePanel).GetComponent<BeatLine>();
+        nodeSpawner = Instantiate<GameObject>(nodeSpawnerObject, spawnLocation, new Quaternion()).GetComponent<NodeSpawner>();
+        nodeSpawner.callbackFunc = SpawnFinished;
+        beatLine = Instantiate<GameObject>(beatLineObject, beatLineLocation, new Quaternion()).GetComponent<BeatLine>();
+        beatLine.callbackFunc = NodeProcessed;
 
         // By default, hides the UI elements
-        container.gameObject.SetActive(false);
+        Activate(false);
+    }
+
+    private void Activate(bool active)
+    {
+        container.gameObject.SetActive(active);
+        nodeSpawner.gameObject.SetActive(active);
+        beatLine.gameObject.SetActive(active);
+    }
+
+    // Handling NodeSpawner callback, marks the node spawner has finished spawning process, awaiting for beatline
+    private void SpawnFinished()
+    {
+        Debug.Log("Spawn Finished");
+        spawnFinishedFlag = true;
+    }
+
+    // Handling BeatLine callback, gets called everytime a node is processed
+    private void NodeProcessed()
+    {
+        // Only care when the spawning process is finished as well
+        // Invoke callback function when beatline has processed all spawned nodes
+        if (spawnFinishedFlag && beatLine.nodeCount == nodeSpawner.spawnCount)
+        {
+            instance.comboResult = beatLine.rhythmResult;
+            callbackFunc();
+        }
     }
 
     #endregion
@@ -91,6 +136,9 @@ public class RhythmCombo : MonoBehaviour
     public void Register(ComboPiece combo)
     {
         title.text = combo.musicName + " - " + combo.artistName;
+        // icon = combo.icon
+        nodeSpawner.PrepareNodes(combo.timeNodeArray);
+        spawnFinishedFlag = false;
     }
 
     /// <summary>
@@ -98,7 +146,8 @@ public class RhythmCombo : MonoBehaviour
     /// </summary>
     public void Display()
     {
-        container.gameObject.SetActive(true);
+        Activate(true);
+        nodeSpawner.StartSpawning();
     }
 
     /// <summary>
@@ -106,7 +155,7 @@ public class RhythmCombo : MonoBehaviour
     /// </summary>
     public void End()
     {
-
+        Activate(false);
     }
     #endregion
 }

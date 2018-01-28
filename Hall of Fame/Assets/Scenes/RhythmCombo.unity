@@ -219,6 +219,31 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 223644691795632262, guid: 262919c4dd6f83a468041ecca6fa9399,
+        type: 2}
+      propertyPath: m_PixelPerfect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 223644691795632262, guid: 262919c4dd6f83a468041ecca6fa9399,
+        type: 2}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224289569685167378, guid: 262919c4dd6f83a468041ecca6fa9399,
+        type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224289569685167378, guid: 262919c4dd6f83a468041ecca6fa9399,
+        type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224289569685167378, guid: 262919c4dd6f83a468041ecca6fa9399,
+        type: 2}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 262919c4dd6f83a468041ecca6fa9399, type: 2}
   m_IsPrefabParent: 0
@@ -274,9 +299,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5227c892e6b78cd4bbc01cc67659e4a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audio: {fileID: 0}
   musicName: Symphony No. 9
-  artistName: Ludwig van Beethoven
+  artistName: Beethoven
   icon: {fileID: 0}
+  timeNodeArray:
+  - timeStamp: 0.375
+    nodeButton: 0
+  - timeStamp: 1.1
+    nodeButton: 1
+  - timeStamp: 1.356
+    nodeButton: 0
 --- !u!1 &1769432765
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,7 +361,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
