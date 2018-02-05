@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NodeSpawner : MonoBehaviour
 {
-    #region Private Members
+    #region Public Members
     // Controls the spawning timing offset and speed of node
     public int bpm;
 
@@ -27,8 +27,14 @@ public class NodeSpawner : MonoBehaviour
     // Timer variable for spawning node as TimeNode array indicated
     private float elapsedTime;
 
+    // Distance from spawner to endline
+    private float endlineDistance = 0;
+
     // TimeNode array from ComboPiece registered
     private TimedNode[] timeNodes;
+
+    // Node travelling speed in seconds
+    [SerializeField] private float travelSpeed = 1.5f;
     #endregion
 
     #region Private Methods
@@ -51,7 +57,7 @@ public class NodeSpawner : MonoBehaviour
             // Increments the elasped timer to keep track of when to spawn node
             elapsedTime += Time.deltaTime;
 
-            if (timeNodes[spawnCount].timeStamp <= elapsedTime)
+            if (timeNodes[spawnCount].timeStamp + travelSpeed <= elapsedTime)
             {
                 // Instantiate beat node
                 Instantiate(beatNode, this.transform).GetComponent<BeatNode>().keyCode = timeNodes[spawnCount].nodeButton;
@@ -82,6 +88,12 @@ public class NodeSpawner : MonoBehaviour
     {
         spawning = true;
         spawnCount = 0;
+    }
+
+    public void EndlinePosition(Vector3 endline)
+    {
+        endlineDistance = Vector3.Distance(this.gameObject.transform.position, endline);
+        Debug.Log(endlineDistance);
     }
 
     #endregion

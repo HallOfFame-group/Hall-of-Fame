@@ -36,6 +36,9 @@ public class RhythmCombo : MonoBehaviour
     private BeatLine beatLine;
     private Vector3 beatLineLocation;
 
+    // GUI reference to node press result
+    private GameObject [] displayText;
+
     // Contains combo result obtained from beat line object
     public RhythmResult comboResult;
 
@@ -77,24 +80,47 @@ public class RhythmCombo : MonoBehaviour
     #region Non-Public Methods
     protected void Init()
     {
-        // Obtain all private references
+        // Obtain private references to GUI elements under Canvas
         container = transform.Find("UIContainer");
         icon = container.Find("Icon").GetComponent<Image>();
         title = container.Find("Title").Find("MusicTitleText").GetComponent<Text>();
 
+        // Obtain references to gaming GUI elements
         Transform nodePanel = container.Find("NodePanel");
-        beatLineLocation = nodePanel.Find("BeatLine").position;
+        Transform beatline = nodePanel.Find("BeatLine");
+        beatLineLocation = beatline.position;
         spawnLocation = nodePanel.Find("Spawner").position;
 
+        // Spawn Rhythm Combo non-UI prefabs for processing in-game events
         nodeSpawner = Instantiate<GameObject>(nodeSpawnerObject, spawnLocation, new Quaternion()).GetComponent<NodeSpawner>();
-        nodeSpawner.callbackFunc = SpawnFinished;
         beatLine = Instantiate<GameObject>(beatLineObject, beatLineLocation, new Quaternion()).GetComponent<BeatLine>();
+
+        // Register callback event handlers
+        nodeSpawner.callbackFunc = SpawnFinished;
         beatLine.callbackFunc = NodeProcessed;
+
+        // Provide node spawner reference of beatline for calculating traveling speed
+        nodeSpawner.EndlinePosition(beatLineLocation);
+
+        // Obtain visual feed back elements for node pressed event
+        displayText = new GameObject[4];
+
+        displayText[0] = beatline.Find("PerfectText").gameObject;
+        displayText[1] = beatline.Find("GoodText").gameObject;
+        displayText[2] = beatline.Find("BadText").gameObject;
+        displayText[3] = beatline.Find("MissText").gameObject;
+
+        // Deactivate all visual components
+        foreach(GameObject go in displayText)
+        {
+            go.SetActive(false);
+        }
 
         // By default, hides the UI elements
         Activate(false);
     }
 
+    // Set Rhythm combo active or not
     private void Activate(bool active)
     {
         container.gameObject.SetActive(active);
@@ -110,8 +136,15 @@ public class RhythmCombo : MonoBehaviour
     }
 
     // Handling BeatLine callback, gets called everytime a node is processed
-    private void NodeProcessed()
+    private void NodeProcessed(NodePressResult result)
     {
+        // Disable all visual UI, then display the correct one
+        foreach(GameObject go in displayText)
+        {
+            go.SetActive(false);
+        }
+        displayText[(int)result].SetActive(true);
+
         // Only care when the spawning process is finished as well
         // Invoke callback function when beatline has processed all spawned nodes
         if (spawnFinishedFlag && beatLine.nodeCount == nodeSpawner.spawnCount)

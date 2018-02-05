@@ -19,9 +19,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4422933127808998}
-  - component: {fileID: 114913051421454074}
   - component: {fileID: 61112698936559948}
   - component: {fileID: 50912766428263316}
+  - component: {fileID: 114913051421454074}
   m_Layer: 0
   m_Name: BeatLine
   m_TagString: Untagged
@@ -98,3 +98,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5b90bf9bb0eba140925d05f13247550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nodeCount: 0
