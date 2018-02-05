@@ -15,6 +15,10 @@ public class BeatLine : MonoBehaviour
     #region Private Members
     // Using a list of game objects to track the nodes enter/exist the detection region
     private List<GameObject> nodeList;
+
+    [SerializeField] private float perfectAllowanceRange = 1;
+    [SerializeField] private float goodAllowanceRange = 2;
+    [SerializeField] private float badAllowanceRange = 3;
     #endregion
 
     #region Public Members
@@ -73,17 +77,17 @@ public class BeatLine : MonoBehaviour
             // Good  - < 2
             // Bad - < 3
             // Miss everything else
-            if (Mathf.Abs(nodeList[0].transform.position.x - this.transform.position.x) < 1)
+            if (Mathf.Abs(nodeList[0].transform.position.x - this.transform.position.x) < perfectAllowanceRange)
             {
                 result = NodePressResult.PERFECT;
                 ++rhythmResult.perfectCount;
             }
-            else if (Mathf.Abs(nodeList[0].transform.position.x - transform.position.x) < 2)
+            else if (Mathf.Abs(nodeList[0].transform.position.x - transform.position.x) < goodAllowanceRange)
             {
                 result = NodePressResult.GOOD;
                 ++rhythmResult.goodCount;
             }
-            else if (Mathf.Abs(nodeList[0].transform.position.x - transform.position.x) < 3)
+            else if (Mathf.Abs(nodeList[0].transform.position.x - transform.position.x) < badAllowanceRange)
             {
                 result = NodePressResult.BAD;
                 ++rhythmResult.badCount;
