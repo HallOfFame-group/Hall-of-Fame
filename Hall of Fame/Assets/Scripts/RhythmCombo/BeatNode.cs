@@ -21,12 +21,27 @@ public class BeatNode : MonoBehaviour
     // Flag controlling lerping motion state
     private bool start = false;
 
-    private float timeElapsed = 0;
+    [SerializeField] private Sprite key1;
+    [SerializeField] private Sprite key2;
+    private SpriteRenderer spriteRenderer;
+
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     public void StartNode(float distance, float travelSpeed)
     {
         destination = this.transform.position + Vector3.right * distance;
         timeInterval = distance / travelSpeed * Time.fixedDeltaTime;
+        if (keyCode == NodeButton.Key1)
+        {
+            spriteRenderer.sprite = key1;
+        }
+        else
+        {
+            spriteRenderer.sprite = key2;
+        }
         start = true;
     }
 
