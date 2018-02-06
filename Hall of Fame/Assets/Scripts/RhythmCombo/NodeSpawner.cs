@@ -33,7 +33,10 @@ public class NodeSpawner : MonoBehaviour
     // TimeNode array from ComboPiece registered
     private TimedNode[] timeNodes;
 
-    // Node travelling speed in seconds
+    private float baseTime;
+
+    // Node traveling speed in seconds
+    [Range(0.1f, 2.0f)]
     [SerializeField] private float travelSpeed = 1.5f;
     #endregion
 
@@ -41,7 +44,7 @@ public class NodeSpawner : MonoBehaviour
     private void ResetNodeSpawner()
     {
         spawning = false;
-        elapsedTime = 0.0f;
+        elapsedTime = -travelSpeed;
     }
 
     private void Awake()
@@ -57,10 +60,12 @@ public class NodeSpawner : MonoBehaviour
             // Increments the elasped timer to keep track of when to spawn node
             elapsedTime += Time.deltaTime;
 
-            if (timeNodes[spawnCount].timeStamp + travelSpeed <= elapsedTime)
+            if (timeNodes[spawnCount].timeStamp - travelSpeed <= elapsedTime)
             {
                 // Instantiate beat node
-                Instantiate(beatNode, this.transform).GetComponent<BeatNode>().keyCode = timeNodes[spawnCount].nodeButton;
+                BeatNode node = Instantiate(beatNode, this.transform).GetComponent<BeatNode>();
+                node.keyCode = timeNodes[spawnCount].nodeButton;
+                node.StartNode(endlineDistance, travelSpeed);
 
                 // Increment spawn count
                 ++spawnCount;
@@ -93,7 +98,6 @@ public class NodeSpawner : MonoBehaviour
     public void EndlinePosition(Vector3 endline)
     {
         endlineDistance = Vector3.Distance(this.gameObject.transform.position, endline);
-        Debug.Log(endlineDistance);
     }
 
     #endregion
