@@ -457,11 +457,11 @@ MonoBehaviour:
   artistName: Beethoven
   icon: {fileID: 0}
   timeNodeArray:
-  - timeStamp: 0.375
+  - timeStamp: 0.5
     nodeButton: 0
-  - timeStamp: 1.1
+  - timeStamp: 2
     nodeButton: 1
-  - timeStamp: 1.356
+  - timeStamp: 3.5
     nodeButton: 0
 --- !u!1 &1769432765
 GameObject:

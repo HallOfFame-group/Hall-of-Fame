@@ -5,9 +5,6 @@ using UnityEngine;
 public class NodeSpawner : MonoBehaviour
 {
     #region Public Members
-    // Controls the spawning timing offset and speed of node
-    public int bpm;
-
     public delegate void NodeSpawnerCallback();
 
     // Total spawned count
