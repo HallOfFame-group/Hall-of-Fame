@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class NodeSpawner : MonoBehaviour
 {
-    #region Private Members
-    // Controls the spawning timing offset and speed of node
-    public int bpm;
-
+    #region Public Members
     public delegate void NodeSpawnerCallback();
 
     // Total spawned count
@@ -27,15 +24,24 @@ public class NodeSpawner : MonoBehaviour
     // Timer variable for spawning node as TimeNode array indicated
     private float elapsedTime;
 
+    // Distance from spawner to endline
+    private float endlineDistance = 0;
+
     // TimeNode array from ComboPiece registered
     private TimedNode[] timeNodes;
+
+    private float baseTime;
+
+    // Node traveling speed in seconds
+    [Range(0.1f, 2.0f)]
+    [SerializeField] private float travelSpeed = 1.5f;
     #endregion
 
     #region Private Methods
     private void ResetNodeSpawner()
     {
         spawning = false;
-        elapsedTime = 0.0f;
+        elapsedTime = -travelSpeed;
     }
 
     private void Awake()
@@ -51,10 +57,12 @@ public class NodeSpawner : MonoBehaviour
             // Increments the elasped timer to keep track of when to spawn node
             elapsedTime += Time.deltaTime;
 
-            if (timeNodes[spawnCount].timeStamp <= elapsedTime)
+            if (timeNodes[spawnCount].timeStamp - travelSpeed <= elapsedTime)
             {
                 // Instantiate beat node
-                Instantiate(beatNode, this.transform).GetComponent<BeatNode>().keyCode = timeNodes[spawnCount].nodeButton;
+                BeatNode node = Instantiate(beatNode, this.transform).GetComponent<BeatNode>();
+                node.keyCode = timeNodes[spawnCount].nodeButton;
+                node.StartNode(endlineDistance, travelSpeed);
 
                 // Increment spawn count
                 ++spawnCount;
@@ -82,6 +90,11 @@ public class NodeSpawner : MonoBehaviour
     {
         spawning = true;
         spawnCount = 0;
+    }
+
+    public void EndlinePosition(Vector3 endline)
+    {
+        endlineDistance = Vector3.Distance(this.gameObject.transform.position, endline);
     }
 
     #endregion
