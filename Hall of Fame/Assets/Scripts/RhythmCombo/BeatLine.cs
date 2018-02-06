@@ -69,28 +69,40 @@ public class BeatLine : MonoBehaviour
     private void Update()
     {
         // Right now just using space bar for detection
-        if (Input.GetKeyDown(KeyCode.Space) && nodeList.Count > 0)
+        bool key1 = Input.GetAxis("RhythmKey1") != 0.0f;
+        bool key2 = Input.GetAxis("RhythmKey2") != 0.0f;
+
+        if ((key1 || key2) && nodeList.Count > 0)
         {
             NodePressResult result = NodePressResult.MISS;
-            // Using the distance from the center to determine the score
-            // Perfect - < 1
-            // Good  - < 2
-            // Bad - < 3
-            // Miss everything else
-            if (Mathf.Abs(nodeList[0].transform.position.x - this.transform.position.x) < perfectAllowanceRange)
+
+            // Check if the key pressed equals the first node in list
+            // Using debounce to prevent player smashing all keys
+            BeatNode beatNode = nodeList[0].GetComponent<BeatNode>();
+            if ((beatNode.keyCode == NodeButton.Key1 && key1 && !key2) ||
+                (beatNode.keyCode == NodeButton.Key2 && !key1 && key2))
             {
-                result = NodePressResult.PERFECT;
-                ++rhythmResult.perfectCount;
-            }
-            else if (Mathf.Abs(nodeList[0].transform.position.x - transform.position.x) < goodAllowanceRange)
-            {
-                result = NodePressResult.GOOD;
-                ++rhythmResult.goodCount;
-            }
-            else if (Mathf.Abs(nodeList[0].transform.position.x - transform.position.x) < badAllowanceRange)
-            {
-                result = NodePressResult.BAD;
-                ++rhythmResult.badCount;
+                // Using the distance from the center to determine the score
+                if (Mathf.Abs(nodeList[0].transform.position.x - this.transform.position.x) < perfectAllowanceRange)
+                {
+                    result = NodePressResult.PERFECT;
+                    ++rhythmResult.perfectCount;
+                }
+                else if (Mathf.Abs(nodeList[0].transform.position.x - transform.position.x) < goodAllowanceRange)
+                {
+                    result = NodePressResult.GOOD;
+                    ++rhythmResult.goodCount;
+                }
+                else if (Mathf.Abs(nodeList[0].transform.position.x - transform.position.x) < badAllowanceRange)
+                {
+                    result = NodePressResult.BAD;
+                    ++rhythmResult.badCount;
+                }
+                else
+                {
+                    result = NodePressResult.MISS;
+                    ++rhythmResult.missCount;
+                }
             }
             else
             {
@@ -101,7 +113,7 @@ public class BeatLine : MonoBehaviour
             // Remove the processed node from the list
             GameObject obj = nodeList[0];
             nodeList.RemoveAt(0);
-            Destroy(obj);
+            DestroyImmediate(obj);
 
             // Increase the total count
             ++nodeCount;

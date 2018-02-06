@@ -147,6 +147,9 @@ public class RhythmCombo : MonoBehaviour
 
         // Only care when the spawning process is finished as well
         // Invoke callback function when beatline has processed all spawned nodes
+        Debug.Log(spawnFinishedFlag);
+        Debug.Log(beatLine.nodeCount);
+        Debug.Log(nodeSpawner.spawnCount);
         if (spawnFinishedFlag && beatLine.nodeCount == nodeSpawner.spawnCount)
         {
             instance.comboResult = beatLine.rhythmResult;

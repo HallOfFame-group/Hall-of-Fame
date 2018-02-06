@@ -3,12 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum NodeButton
-{
-    A,
-    B
-}
-
 [System.Serializable]
 public struct TimedNode
 {

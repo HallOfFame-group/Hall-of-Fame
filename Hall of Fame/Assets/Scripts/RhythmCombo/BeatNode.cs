@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum NodeButton
+{
+    Key1,
+    Key2
+}
+
 public class BeatNode : MonoBehaviour
 {
     public NodeButton keyCode;
