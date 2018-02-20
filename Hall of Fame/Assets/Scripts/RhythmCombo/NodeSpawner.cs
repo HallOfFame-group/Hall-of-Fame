@@ -35,6 +35,8 @@ public class NodeSpawner : MonoBehaviour
     // Node traveling speed in seconds
     [Range(0.1f, 2.0f)]
     [SerializeField] private float travelSpeed = 1.5f;
+
+    private GameObject[] spawnLine;
     #endregion
 
     #region Private Methods
@@ -47,6 +49,12 @@ public class NodeSpawner : MonoBehaviour
     private void Awake()
     {
         ResetNodeSpawner();
+
+        // Obtain different spawn line
+        spawnLine = new GameObject[3];
+        spawnLine[0] = transform.Find("TopLine").gameObject;
+        spawnLine[1] = transform.Find("MidLine").gameObject;
+        spawnLine[2] = transform.Find("BotLine").gameObject;
     }
 
     private void Update()
@@ -59,8 +67,10 @@ public class NodeSpawner : MonoBehaviour
 
             if (timeNodes[spawnCount].timeStamp - travelSpeed <= elapsedTime)
             {
+                int spawnIndex = Random.Range(0, 3);
+
                 // Instantiate beat node
-                BeatNode node = Instantiate(beatNode, this.transform).GetComponent<BeatNode>();
+                BeatNode node = Instantiate(beatNode, spawnLine[spawnIndex].transform).GetComponent<BeatNode>();
                 node.keyCode = timeNodes[spawnCount].nodeButton;
                 node.StartNode(endlineDistance, travelSpeed);
 

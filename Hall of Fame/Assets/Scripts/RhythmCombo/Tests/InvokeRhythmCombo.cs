@@ -19,5 +19,6 @@ public class InvokeRhythmCombo : MonoBehaviour
         Debug.Log(RhythmCombo.instance.comboResult.goodCount);
         Debug.Log(RhythmCombo.instance.comboResult.badCount);
         Debug.Log(RhythmCombo.instance.comboResult.missCount);
+        CrowdBar.instance.IncreaseToPlayer1(30);
     }
 }

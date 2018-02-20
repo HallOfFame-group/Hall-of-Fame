@@ -81,7 +81,7 @@ public class RhythmCombo : MonoBehaviour
     protected void Init()
     {
         // Obtain private references to GUI elements under Canvas
-        container = transform.Find("UIContainer");
+        container = transform.Find("RhythmCombo");
         icon = container.Find("Icon").GetComponent<Image>();
         title = container.Find("Title").Find("MusicTitleText").GetComponent<Text>();
 
